@@ -1,4 +1,4 @@
-import Scandit from 'scandit-sdk';
+var Scandit = require("scandit-sdk");
 
 const engineLocation = "https://unpkg.com/scandit-sdk/build"
 
