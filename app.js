@@ -19,7 +19,8 @@ let picker;
 // create & start picker
 Scandit.BarcodePicker.create(scannerContainer, {
   playSoundOnScan: true,
-  vibrateOnScan: true
+  vibrateOnScan: true,
+  guiStyle: 2
 })
 .then(picker => {
   const scanSettings = new Scandit.ScanSettings({
@@ -31,17 +32,19 @@ Scandit.BarcodePicker.create(scannerContainer, {
   picker.onScan(scanResult => {
     continueButton.hidden = false;
     continueButton.disabled = false;
-    picker.pauseScanning();
-    resultContainer.innerHTML = scanResult.barcodes.reduce((string, barcode) => {
-      string + `${Scandit.Barcode.Symbology.toHumanizedName(barcode.symbology)}: ${barcode.data}<br>`
-    })
+    // picker.pauseScanning();
+    // resultContainer.innerHTML = scanResult.barcodes.reduce((string, barcode) => {
+    //   string + `${Scandit.Barcode.Symbology.toHumanizedName(barcode.symbology)}: ${barcode.data}<br>`
+    // })
+    console.log('scanResult.barcodes', scanResult.barcodes);
+    resultContainer.innerHTML = `${scanResult.barcodes[0].symbology}: ${scanResult.barcodes[0].data}`;
   });
 
   picker.onScanError(error => {
     alert(error.message);
   });
   
-  picker.resumeScanning();
+  // picker.resumeScanning();
 })
 .catch(err => {
   console.log(err);
